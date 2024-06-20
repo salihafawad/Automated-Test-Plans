@@ -1,0 +1,66 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+name: Automated-Test-Cases
+trigger:
+  branches:
+    include:
+      - main
+
+jobs:
+- job: Run-Test-Cases
+  displayName: 'Running Test Cases'
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk 3.x'
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+
+  - script: |
+      # Execute portal testing from scratch
+      echo "Accessing the application link: qa.divaaco.com"
+      
+      # Insert commands to interact with the application here
+
+      echo "Running manual test case with Test Plan ID: 7771, Test Suite ID: 7774, Test Case ID: 7813..."
+
+      # Insert commands to run the specific test case here
+      
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFiles: '**/*.trx'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      testRunTitle: 'Automated Test Results'
+      testRunSystem: 'VSTest'
+    
+ 
+ 
+ 
+      
+ 
+ 
+   
+  
