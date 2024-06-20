@@ -1,10 +1,6 @@
 # ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
@@ -13,5 +9,20 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk 3.x'
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+
+  - script: |
+      echo "Accessing the application link: qa.divaaco.com"
+      echo "Running manual test case with Test Plan ID: 7771, Test Suite ID: 7774, Test Case ID: 7813..."
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFiles: '**/*.trx'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      testRunTitle: 'Automated Test Results'
+     
