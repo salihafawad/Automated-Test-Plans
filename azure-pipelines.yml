@@ -22,7 +22,9 @@ steps:
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
     inputs:
-      testResultsFiles: 'Progress report.xml'
+      testResultsFiles: '**-TEST/*.trx'
       searchFolder: '$(System.DefaultWorkingDirectory)'
       testRunTitle: 'Automated Test Results'
+      
+      
      
